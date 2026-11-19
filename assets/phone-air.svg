@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 720" fill="none">
+<title>轻影 Air 轻薄手机展示插画</title>
+<defs>
+  <linearGradient id="bg" x1="120" y1="20" x2="840" y2="700" gradientUnits="userSpaceOnUse">
+    <stop stop-color="#dbe7e2"/><stop offset="0.55" stop-color="#e9ede3"/><stop offset="1" stop-color="#f1e7da"/>
+  </linearGradient>
+  <pattern id="microdots" width="20" height="20" patternUnits="userSpaceOnUse">
+    <circle cx="1.4" cy="1.4" r="1.1" fill="#2f403a" opacity=".13"/>
+  </pattern>
+  <filter id="drop" x="-60%" y="-60%" width="220%" height="220%">
+    <feDropShadow dx="0" dy="24" stdDeviation="26" flood-color="#201d17" flood-opacity=".24"/>
+  </filter>
+  <filter id="dropSoft" x="-60%" y="-60%" width="220%" height="220%">
+    <feDropShadow dx="0" dy="12" stdDeviation="14" flood-color="#201d17" flood-opacity=".17"/>
+  </filter>
+  <filter id="blurSoft" x="-80%" y="-80%" width="260%" height="260%">
+    <feGaussianBlur stdDeviation="24"/>
+  </filter>
+  <linearGradient id="sheen" x1="0.1" y1="0" x2="0.9" y2="1">
+    <stop stop-color="#ffffff" stop-opacity=".28"/>
+    <stop offset=".45" stop-color="#ffffff" stop-opacity="0"/>
+    <stop offset="1" stop-color="#ffffff" stop-opacity=".1"/>
+  </linearGradient>
+</defs>
+<rect width="960" height="720" fill="url(#bg)"/>
+<circle cx="810" cy="120" r="300" fill="#779c91" opacity=".10"/>
+<circle cx="810" cy="120" r="235" stroke="#2f403a" stroke-opacity=".10"/>
+<circle cx="100" cy="612" r="210" fill="#779c91" opacity=".06"/>
+<rect x="690" y="390" width="190" height="130" fill="url(#microdots)" opacity=".7"/>
+<g fill="#2f403a" opacity=".55" font-family="Helvetica, Arial, sans-serif">
+  <text x="48" y="55" font-size="10.5" letter-spacing="4.2">JIANWU / PHONE</text>
+  <text x="912" y="55" font-size="10.5" letter-spacing="2.6" text-anchor="end">02 / 04</text>
+</g>
+<line x1="48" y1="77" x2="912" y2="77" stroke="#2f403a" stroke-opacity=".14"/>
+<defs>
+  <linearGradient id="metalEdge" x1="0" y1="0" x2="1" y2="0">
+    <stop stop-color="#58544b"/><stop offset=".14" stop-color="#171c19"/><stop offset=".5" stop-color="#4b5650"/><stop offset=".82" stop-color="#121715"/><stop offset="1" stop-color="#555049"/>
+  </linearGradient>
+  <linearGradient id="graphite" x1="0" y1="0" x2="1" y2="1">
+    <stop stop-color="#48534c"/><stop offset=".32" stop-color="#202923"/><stop offset=".75" stop-color="#111714"/><stop offset="1" stop-color="#333e37"/>
+  </linearGradient>
+  <linearGradient id="backSheen" x1="0" y1="0" x2="1" y2="1">
+    <stop stop-color="#a9b2aa" stop-opacity=".16"/><stop offset=".4" stop-color="#fff" stop-opacity="0"/><stop offset=".78" stop-color="#fff" stop-opacity=".06"/>
+  </linearGradient>
+  
+  <linearGradient id="airFrame" x1="0" y1="0" x2="1" y2="1">
+    <stop stop-color="#fffdf8"/><stop offset=".45" stop-color="#e4ded0"/><stop offset=".76" stop-color="#f8f4e9"/><stop offset="1" stop-color="#c9c7ba"/>
+  </linearGradient>
+  <linearGradient id="airScreen" x1="0" y1="0" x2="1" y2="1">
+    <stop stop-color="#d7ece7"/><stop offset=".42" stop-color="#b6d1c9"/><stop offset=".72" stop-color="#e6d4c5"/><stop offset="1" stop-color="#cb9c89"/>
+  </linearGradient>
+  <linearGradient id="airSide" x1="0" y1="0" x2="1" y2="0">
+    <stop stop-color="#faf7ee"/><stop offset=".38" stop-color="#c2c3b7"/><stop offset=".55" stop-color="#f7f3e8"/><stop offset="1" stop-color="#aeb1a7"/>
+  </linearGradient>
+  <clipPath id="airScreenClip"><rect x="345" y="128" width="246" height="491" rx="35"/></clipPath>
+</defs>
+<ellipse cx="474" cy="641" rx="290" ry="29" fill="#52645d" opacity=".15" filter="url(#blurSoft)"/>
+
+<g transform="rotate(-5 279 374)" filter="url(#dropSoft)">
+  <rect x="250" y="169" width="38" height="430" rx="19" fill="url(#airSide)"/>
+  <rect x="254" y="186" width="5" height="86" rx="2.5" fill="#2d3933" opacity=".55"/>
+  <rect x="254" y="291" width="5" height="48" rx="2.5" fill="#2d3933" opacity=".4"/>
+  <circle cx="269" cy="550" r="4" fill="#9c9c90"/>
+</g>
+
+<g transform="rotate(-5 469 380)" filter="url(#drop)">
+  <rect x="326" y="105" width="286" height="538" rx="47" fill="url(#airFrame)"/>
+  <rect x="337" y="116" width="264" height="516" rx="39" fill="#f9f5eb"/>
+  <rect x="344" y="126" width="248" height="496" rx="36" fill="#101511"/>
+  <rect x="345" y="128" width="246" height="491" rx="35" fill="url(#airScreen)"/>
+  <g clip-path="url(#airScreenClip)">
+    <circle cx="522" cy="241" r="132" fill="#f3d4b5" opacity=".76"/>
+    <circle cx="522" cy="241" r="96" fill="#f0ac87" opacity=".55"/>
+    <path d="M252 440 C324 371 405 411 469 360 C523 317 556 327 606 279 L606 626 L252 626 Z" fill="#f8f0e5" opacity=".3"/>
+    <path d="M243 474 C331 401 402 451 474 398 C535 353 571 371 617 326" stroke="#f7f3e9" stroke-opacity=".62" stroke-width="1.4"/>
+    <path d="M246 493 C338 424 405 470 481 419 C544 376 581 393 617 352" stroke="#f7f3e9" stroke-opacity=".28" stroke-width="1.4"/>
+    <text x="371" y="206" fill="#26413a" font-family="Helvetica, Arial, sans-serif" font-size="11" letter-spacing="2.4" opacity=".7">A I R</text>
+    <text x="372" y="497" fill="#fffaf2" font-family="Helvetica, Arial, sans-serif" font-size="45" font-weight="300" letter-spacing="-1">09:41</text>
+    <text x="373" y="520" fill="#f8f5eb" font-family="Helvetica, Arial, sans-serif" font-size="9" letter-spacing="2" opacity=".75">A LIGHT KIND OF DAY</text>
+    <rect x="368" y="544" width="201" height="42" rx="21" fill="#fffaf2" opacity=".22"/>
+    <rect x="381" y="560" width="102" height="7" rx="3.5" fill="#fffaf2" opacity=".8"/>
+    <rect x="492" y="562" width="17" height="6" rx="3" fill="#fffaf2" opacity=".5"/>
+    <rect x="520" y="562" width="17" height="6" rx="3" fill="#fffaf2" opacity=".5"/>
+    <path d="M345 128 L585 128 L585 263 C477 222 394 277 345 367 Z" fill="url(#sheen)" opacity=".36"/>
+  </g>
+  <rect x="438" y="141" width="61" height="20" rx="10" fill="#18201c"/>
+  <circle cx="486" cy="151" r="3.2" fill="#4a5c53"/>
+  <rect x="612" y="255" width="4" height="63" rx="2" fill="#b5b1a5"/>
+  <rect x="321" y="238" width="4" height="55" rx="2" fill="#b5b1a5"/>
+</g>
+
+<g fill="none" stroke="#507067" stroke-opacity=".35">
+  <circle cx="726" cy="178" r="35"/>
+  <circle cx="726" cy="178" r="49" stroke-dasharray="2 8"/>
+  <path d="M668 592 C716 552 761 552 808 588" stroke-width="1.2"/>
+</g>
+<g opacity=".75" fill="#f7f0e4">
+  <circle cx="742" cy="389" r="9" fill-opacity=".52"/>
+  <circle cx="770" cy="419" r="4" fill-opacity=".5"/>
+  <circle cx="172" cy="215" r="6" fill-opacity=".42"/>
+</g>
+<g transform="translate(145 466)" opacity=".74">
+  <rect width="105" height="30" rx="15" fill="#f6f1e6" fill-opacity=".5" stroke="#436257" stroke-opacity=".22"/>
+  <circle cx="17" cy="15" r="3.5" fill="#8baa9f"/>
+  <text x="29" y="19" fill="#3b5148" font-family="Helvetica, Arial, sans-serif" font-size="8" letter-spacing="1.9">7.2 MM SLIM</text>
+</g>
+<g fill="#2f403a" opacity=".38" font-family="Helvetica, Arial, sans-serif">
+  <text x="48" y="676" font-size="8.5" letter-spacing="3.2">JIANWU SELECT · OBJECT STUDY 2026</text>
+</g>
+<g transform="translate(900 672)">
+  <circle cx="0" cy="0" r="4" fill="#779c91"/>
+  <circle cx="16" cy="0" r="4" stroke="#2f403a" stroke-opacity=".4"/>
+</g>
+</svg>

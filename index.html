@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ffffff">
+<meta name="description" content="精选好物，微信咨询下单。">
+<title>宁萌商行</title>
+<style>
+  :root{
+    --accent:#ff6b35;
+    --accent-soft:#fff1eb;
+    --wx:#07c160;
+    --ink:#1f1d1b;
+    --ink-2:#5f5b56;
+    --ink-3:#9a958e;
+    --line:#eceae6;
+    --bg:#f6f5f3;
+    --card:#fff;
+    --radius:16px;
+    --shadow:0 1px 2px rgba(31,29,27,.05),0 8px 24px rgba(31,29,27,.06);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    background:var(--bg);color:var(--ink);
+    line-height:1.5;-webkit-font-smoothing:antialiased;
+  }
+  button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+  img{display:block;max-width:100%}
+
+  /* ===== 顶部 ===== */
+  header{
+    position:sticky;top:0;z-index:20;
+    background:rgba(255,255,255,.92);
+    backdrop-filter:saturate(1.6) blur(14px);
+    -webkit-backdrop-filter:saturate(1.6) blur(14px);
+    border-bottom:1px solid var(--line);
+    padding-top:env(safe-area-inset-top);
+  }
+  .bar{
+    max-width:1080px;margin:0 auto;
+    padding:14px 16px 10px;
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+  }
+  .brand{min-width:0}
+  .brand h1{
+    font-size:20px;font-weight:700;letter-spacing:.2px;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .brand p{font-size:12px;color:var(--ink-3);margin-top:2px}
+  .wechat{
+    flex:none;display:inline-flex;align-items:center;gap:6px;
+    font-size:13px;color:var(--wx);background:#eefbf3;
+    border:1px solid #c9f0da;border-radius:999px;
+    padding:8px 14px;transition:background .15s,color .15s,border-color .15s;
+  }
+  .wechat:hover{background:#ddf8e8}
+  .wechat:active{transform:scale(.98)}
+  .wechat svg{width:15px;height:15px;flex:none}
+  .wechat.copied{background:var(--wx);border-color:var(--wx);color:#fff}
+
+  .cats{
+    display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;
+    padding:2px 16px 12px;max-width:1080px;margin:0 auto;
+    -webkit-overflow-scrolling:touch;
+  }
+  .cats::-webkit-scrollbar{display:none}
+  .cat{
+    flex:none;display:inline-flex;align-items:center;gap:6px;
+    padding:7px 15px;border-radius:999px;
+    border:1px solid var(--line);background:#fff;
+    font-size:14px;color:var(--ink-2);
+    transition:all .15s;
+  }
+  .cat:hover{border-color:#ffc4ad;color:var(--accent)}
+  .cat.active{background:var(--ink);border-color:var(--ink);color:#fff}
+  .cat .n{font-size:11px;opacity:.55}
+
+  /* ===== 商品 ===== */
+  .grid{
+    max-width:1080px;margin:0 auto;
+    padding:18px 16px 8px;
+    display:grid;gap:14px;
+    grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+  }
+  .card{
+    background:var(--card);border-radius:var(--radius);overflow:hidden;
+    text-align:left;box-shadow:var(--shadow);
+    transition:transform .18s ease,box-shadow .18s ease;
+    display:flex;flex-direction:column;
+  }
+  .card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(31,29,27,.10)}
+  .card:active{transform:translateY(-1px)}
+  .thumb{aspect-ratio:4/3;background:#efeeeb;overflow:hidden}
+  .thumb img{width:100%;height:100%;object-fit:cover;transition:transform .35s ease}
+  .card:hover .thumb img{transform:scale(1.04)}
+  .card-body{padding:11px 12px 13px}
+  .card-name{font-size:14px;font-weight:600;line-height:1.4}
+  .card-tip{
+    display:flex;align-items:center;gap:4px;
+    margin-top:6px;font-size:12px;color:var(--wx);
+  }
+  .card-tip svg{width:12px;height:12px}
+  .empty{
+    grid-column:1/-1;text-align:center;color:var(--ink-3);
+    font-size:14px;padding:56px 0;
+  }
+  footer{
+    text-align:center;color:var(--ink-3);font-size:12px;
+    padding:26px 16px calc(30px + env(safe-area-inset-bottom));
+  }
+  footer .dot{margin:0 6px;opacity:.5}
+
+  /* ===== 弹窗 ===== */
+  .mask{
+    position:fixed;inset:0;z-index:60;
+    display:none;align-items:center;justify-content:center;
+    padding:20px;background:rgba(20,18,16,.5);
+    -webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);
+  }
+  .mask.show{display:flex}
+  .sheet{
+    width:100%;max-width:330px;background:#fff;border-radius:20px;
+    padding:22px 20px 18px;text-align:center;
+    box-shadow:0 24px 60px rgba(0,0,0,.22);
+    animation:pop .22s cubic-bezier(.2,.9,.3,1.2);
+  }
+  @keyframes pop{from{transform:scale(.92);opacity:0}to{transform:scale(1);opacity:1}}
+  .sheet h3{font-size:17px;font-weight:700}
+  .sheet .pname{font-size:13px;color:var(--ink-3);margin-top:4px;min-height:19px}
+  .qr-wrap{margin:16px auto 0;width:180px}
+  .qr-wrap img{
+    width:180px;height:180px;object-fit:contain;border-radius:12px;
+    border:1px solid var(--line);background:#fafafa;padding:6px;
+  }
+  .qr-hint{font-size:12px;color:var(--ink-3);margin-top:8px}
+  .idbox{
+    display:flex;align-items:center;gap:10px;
+    background:#f4f3f1;border-radius:12px;padding:11px 12px;
+    margin-top:16px;
+  }
+  .idbox .id{
+    flex:1;text-align:left;font-size:15px;font-weight:700;color:var(--wx);
+    word-break:break-all;letter-spacing:.2px;
+  }
+  .btn-copy{
+    flex:none;background:var(--wx);color:#fff;border-radius:9px;
+    padding:9px 15px;font-size:13px;font-weight:600;
+    transition:background .15s;
+  }
+  .btn-copy:hover{background:#06ad56}
+  .btn-copy.copied{background:#a8a5a0}
+  .btn-close{
+    width:100%;margin-top:10px;background:#fff;color:var(--ink-2);
+    border:1px solid var(--line);border-radius:12px;
+    padding:12px;font-size:15px;transition:background .15s;
+  }
+  .btn-close:hover{background:#f7f6f4}
+
+  /* ===== 提示 ===== */
+  .toast{
+    position:fixed;left:50%;bottom:calc(32px + env(safe-area-inset-bottom));
+    transform:translate(-50%,10px);z-index:90;
+    background:rgba(31,29,27,.88);color:#fff;
+    font-size:13px;padding:10px 18px;border-radius:999px;
+    opacity:0;pointer-events:none;transition:all .22s ease;
+    white-space:nowrap;
+  }
+  .toast.show{opacity:1;transform:translate(-50%,0)}
+
+  @media (max-width:420px){
+    .brand h1{font-size:18px}
+    .wechat{font-size:12px;padding:7px 11px}
+    .grid{grid-template-columns:repeat(2,1fr);gap:12px;padding:14px 12px 8px}
+    .cats{padding:2px 12px 12px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="bar">
+    <div class="brand">
+      <h1 id="shopName">宁萌商行</h1>
+      <p id="shopSlogan">精选好物 · 微信咨询下单</p>
+    </div>
+    <button class="wechat" id="wechatBtn" title="点击复制微信号" aria-label="复制微信号">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9.5 4C5.9 4 3 6.5 3 9.6c0 1.8 1 3.3 2.5 4.3l-.6 2 2.2-1.1c.6.1 1.2.2 1.9.2h.5c.7 0 1.4-.1 2-.3a5.7 5.7 0 0 1-.3-1.8c0-3.3 3-5.9 6.7-5.9h.6C16.9 5.2 13.5 4 9.5 4Zm-2.4 3.2a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8Zm4.8 0a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8Z"/><path d="M21 13.4c0-2.6-2.5-4.8-5.6-4.8s-5.6 2.2-5.6 4.8 2.5 4.8 5.6 4.8c.6 0 1.2-.1 1.7-.2l1.9.9-.5-1.7c1.5-.8 2.5-2.2 2.5-3.8Zm-7.5-1.1a.8.8 0 1 1 0-1.5.8.8 0 0 1 0 1.5Zm3.8 0a.8.8 0 1 1 0-1.5.8.8 0 0 1 0 1.5Z"/></svg>
+      <span id="wechatText">微信：—</span>
+    </button>
+  </div>
+  <nav class="cats" id="cats" aria-label="商品分类"></nav>
+</header>
+
+<main class="grid" id="grid" aria-live="polite"></main>
+
+<footer>
+  <span id="footerText">© 2026 我的小店</span>
+  <span class="dot">·</span>
+  <span>期待与你相遇</span>
+</footer>
+
+<!-- 微信咨询弹窗 -->
+<div class="mask" id="mask" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="sheet">
+    <h3 id="modalTitle">添加微信咨询</h3>
+    <div class="pname" id="modalProduct"></div>
+
+    <div class="qr-wrap" id="qrWrap" hidden>
+      <img id="modalQR" alt="微信二维码">
+      <div class="qr-hint">长按识别 / 扫码添加</div>
+    </div>
+
+    <div class="idbox">
+      <span class="id" id="modalWxId"></span>
+      <button class="btn-copy" id="btnCopy">复制</button>
+    </div>
+
+    <button class="btn-close" id="btnClose">关闭</button>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+/* ============================================================
+   只改下面这一段，就能换成你自己的店
+   ============================================================ */
+const SHOP = {
+  name:   "宁萌商行",                              // 店名
+  slogan: "精选好物 · 微信咨询下单",               // 副标题
+  wechat: "待填写",                          // 微信号（重要，换成你的）
+  qr:     "",                                      // 二维码图片，例："assets/qr.png"，留空则不显示
+  footer: "© 2026 宁萌商行"
+};
+
+/* 分类：顺序就是显示顺序 */
+const CATEGORIES = ["手机", "耳机", "风扇", "智能手表"];
+
+/* 商品：name 名称 / category 分类 / image 图片路径 */
+const PRODUCTS = [
+  { name: "星曜 X1 Pro 5G 手机",   category: "手机",     image: "assets/phone-pro.svg" },
+  { name: "极光 Air 轻薄手机",     category: "手机",     image: "assets/phone-air.svg" },
+  { name: "云感 Air 真无线耳机",   category: "耳机",     image: "assets/earphone-cloud.svg" },
+  { name: "静界 Pro 头戴式耳机",   category: "耳机",     image: "assets/earphone-studio.svg" },
+  { name: "清风 Mini 桌面风扇",    category: "风扇",     image: "assets/fan-mini.svg" },
+  { name: "环宇 Air 立式循环扇",   category: "风扇",     image: "assets/fan-orbit.svg" },
+  { name: "曜石 Watch S 智能手表", category: "智能手表", image: "assets/watch-obsidian.svg" },
+  { name: "星环 Watch Ultra 户外表", category: "智能手表", image: "assets/watch-halo.svg" }
+];
+/* ============================ 配置结束 ============================ */
+
+const $ = id => document.getElementById(id);
+const catsEl = $('cats'), gridEl = $('grid'), mask = $('mask');
+const modalProduct = $('modalProduct'), modalWxId = $('modalWxId');
+const qrWrap = $('qrWrap'), modalQR = $('modalQR');
+const wechatBtn = $('wechatBtn'), wechatText = $('wechatText');
+const btnCopy = $('btnCopy'), btnClose = $('btnClose'), toastEl = $('toast');
+
+let current = '全部';
+let toastTimer = null;
+
+/* ---------- 基础信息 ---------- */
+document.title = SHOP.name;
+$('shopName').textContent = SHOP.name;
+$('shopSlogan').textContent = SHOP.slogan;
+$('footerText').textContent = SHOP.footer;
+wechatText.textContent = '微信：' + SHOP.wechat;
+
+/* ---------- 复制 ---------- */
+function toast(msg){
+  toastEl.textContent = msg;
+  toastEl.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toastEl.classList.remove('show'), 1600);
+}
+
+async function copyText(text){
+  try{
+    if(navigator.clipboard && window.isSecureContext){
+      await navigator.clipboard.writeText(text);
+      return true;
+    }
+    throw new Error('fallback');
+  }catch(e){
+    try{
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly','');
+      ta.style.cssText = 'position:fixed;top:-9999px;opacity:0';
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, ta.value.length);
+      const ok = document.execCommand('copy');
+      document.body.removeChild(ta);
+      return ok;
+    }catch(_){ return false; }
+  }
+}
+
+/* ---------- 分类 ---------- */
+function renderCats(){
+  const all = ['全部', ...CATEGORIES];
+  catsEl.innerHTML = all.map(c => {
+    const count = c === '全部'
+      ? PRODUCTS.length
+      : PRODUCTS.filter(p => p.category === c).length;
+    return `<button class="cat${c === current ? ' active' : ''}" data-cat="${c}">
+      ${c}<span class="n">${count}</span>
+    </button>`;
+  }).join('');
+}
+
+/* ---------- 商品 ---------- */
+function renderGrid(){
+  const list = current === '全部'
+    ? PRODUCTS
+    : PRODUCTS.filter(p => p.category === current);
+
+  if(!list.length){
+    gridEl.innerHTML = '<div class="empty">这个分类下还没有上架商品</div>';
+    return;
+  }
+
+  gridEl.innerHTML = list.map((p, i) => `
+    <button class="card" data-i="${PRODUCTS.indexOf(p)}" style="animation-delay:${i * 30}ms">
+      <span class="thumb"><img src="${p.image}" alt="${p.name}" loading="lazy" decoding="async"></span>
+      <span class="card-body">
+        <span class="card-name">${p.name}</span>
+        <span class="card-tip">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9.5 4C5.9 4 3 6.5 3 9.6c0 1.8 1 3.3 2.5 4.3l-.6 2 2.2-1.1c.6.1 1.2.2 1.9.2h.5c.7 0 1.4-.1 2-.3a5.7 5.7 0 0 1-.3-1.8c0-3.3 3-5.9 6.7-5.9h.6C16.9 5.2 13.5 4 9.5 4Z"/></svg>
+          点击加微信咨询
+        </span>
+      </span>
+    </button>
+  `).join('');
+}
+
+/* ---------- 弹窗 ---------- */
+let lastFocused = null;
+
+function openModal(productName){
+  lastFocused = document.activeElement;
+  modalProduct.textContent = productName ? '商品：' + productName : '';
+  modalWxId.textContent = SHOP.wechat;
+
+  if(SHOP.qr){
+    modalQR.src = SHOP.qr;
+    modalQR.alt = SHOP.name + ' 微信二维码';
+    qrWrap.hidden = false;
+  }else{
+    qrWrap.hidden = true;
+  }
+
+  mask.classList.add('show');
+  document.body.style.overflow = 'hidden';
+  btnCopy.focus({ preventScroll: true });
+}
+
+function closeModal(){
+  mask.classList.remove('show');
+  document.body.style.overflow = '';
+  if(lastFocused && lastFocused.focus) lastFocused.focus({ preventScroll: true });
+}
+
+/* ---------- 事件 ---------- */
+wechatBtn.addEventListener('click', async () => {
+  await copyText(SHOP.wechat);
+  wechatBtn.classList.add('copied');
+  wechatText.textContent = '已复制微信号 ✓';
+  toast('微信号已复制：' + SHOP.wechat);
+  setTimeout(() => {
+    wechatBtn.classList.remove('copied');
+    wechatText.textContent = '微信：' + SHOP.wechat;
+  }, 1600);
+});
+
+catsEl.addEventListener('click', e => {
+  const btn = e.target.closest('.cat');
+  if(!btn) return;
+  const c = btn.dataset.cat;
+  if(c === current) return;
+  current = c;
+  renderCats();
+  renderGrid();
+});
+
+gridEl.addEventListener('click', e => {
+  const card = e.target.closest('.card');
+  if(!card) return;
+  const p = PRODUCTS[Number(card.dataset.i)];
+  if(p) openModal(p.name);
+});
+
+btnCopy.addEventListener('click', async () => {
+  const ok = await copyText(SHOP.wechat);
+  btnCopy.classList.add('copied');
+  btnCopy.textContent = ok ? '已复制 ✓' : '请长按复制';
+  toast(ok ? '微信号已复制' : '请长按微信号手动复制');
+  setTimeout(() => {
+    btnCopy.classList.remove('copied');
+    btnCopy.textContent = '复制';
+  }, 1600);
+});
+
+btnClose.addEventListener('click', closeModal);
+mask.addEventListener('click', e => { if(e.target === mask) closeModal(); });
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape' && mask.classList.contains('show')) closeModal();
+});
+
+/* ---------- 启动 ---------- */
+renderCats();
+renderGrid();
+</script>
+</body>
+</html>

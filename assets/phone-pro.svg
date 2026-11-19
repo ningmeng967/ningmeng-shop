@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 720" fill="none">
+<title>星曜 X1 Pro 手机展示插画</title>
+<defs>
+  <linearGradient id="bg" x1="120" y1="20" x2="840" y2="700" gradientUnits="userSpaceOnUse">
+    <stop stop-color="#f1c7b0"/><stop offset="0.55" stop-color="#eab391"/><stop offset="1" stop-color="#e0a17e"/>
+  </linearGradient>
+  <pattern id="microdots" width="20" height="20" patternUnits="userSpaceOnUse">
+    <circle cx="1.4" cy="1.4" r="1.1" fill="#3c2b24" opacity=".13"/>
+  </pattern>
+  <filter id="drop" x="-60%" y="-60%" width="220%" height="220%">
+    <feDropShadow dx="0" dy="24" stdDeviation="26" flood-color="#201d17" flood-opacity=".24"/>
+  </filter>
+  <filter id="dropSoft" x="-60%" y="-60%" width="220%" height="220%">
+    <feDropShadow dx="0" dy="12" stdDeviation="14" flood-color="#201d17" flood-opacity=".17"/>
+  </filter>
+  <filter id="blurSoft" x="-80%" y="-80%" width="260%" height="260%">
+    <feGaussianBlur stdDeviation="24"/>
+  </filter>
+  <linearGradient id="sheen" x1="0.1" y1="0" x2="0.9" y2="1">
+    <stop stop-color="#ffffff" stop-opacity=".28"/>
+    <stop offset=".45" stop-color="#ffffff" stop-opacity="0"/>
+    <stop offset="1" stop-color="#ffffff" stop-opacity=".1"/>
+  </linearGradient>
+</defs>
+<rect width="960" height="720" fill="url(#bg)"/>
+<circle cx="810" cy="120" r="300" fill="#b64d30" opacity=".10"/>
+<circle cx="810" cy="120" r="235" stroke="#3c2b24" stroke-opacity=".10"/>
+<circle cx="100" cy="612" r="210" fill="#b64d30" opacity=".06"/>
+<rect x="690" y="390" width="190" height="130" fill="url(#microdots)" opacity=".7"/>
+<g fill="#3c2b24" opacity=".55" font-family="Helvetica, Arial, sans-serif">
+  <text x="48" y="55" font-size="10.5" letter-spacing="4.2">JIANWU / PHONE</text>
+  <text x="912" y="55" font-size="10.5" letter-spacing="2.6" text-anchor="end">01 / 04</text>
+</g>
+<line x1="48" y1="77" x2="912" y2="77" stroke="#3c2b24" stroke-opacity=".14"/>
+<defs>
+  <linearGradient id="metalEdge" x1="0" y1="0" x2="1" y2="0">
+    <stop stop-color="#58544b"/><stop offset=".14" stop-color="#171c19"/><stop offset=".5" stop-color="#4b5650"/><stop offset=".82" stop-color="#121715"/><stop offset="1" stop-color="#555049"/>
+  </linearGradient>
+  <linearGradient id="graphite" x1="0" y1="0" x2="1" y2="1">
+    <stop stop-color="#48534c"/><stop offset=".32" stop-color="#202923"/><stop offset=".75" stop-color="#111714"/><stop offset="1" stop-color="#333e37"/>
+  </linearGradient>
+  <linearGradient id="backSheen" x1="0" y1="0" x2="1" y2="1">
+    <stop stop-color="#a9b2aa" stop-opacity=".16"/><stop offset=".4" stop-color="#fff" stop-opacity="0"/><stop offset=".78" stop-color="#fff" stop-opacity=".06"/>
+  </linearGradient>
+  
+  <linearGradient id="screenPro" x1="0" y1="0" x2="0.8" y2="1">
+    <stop stop-color="#ed9a72"/><stop offset=".45" stop-color="#bf5e44"/><stop offset=".74" stop-color="#6e3e3a"/><stop offset="1" stop-color="#252a29"/>
+  </linearGradient>
+  <clipPath id="proScreenClip"><rect x="279" y="143" width="274" height="509" rx="39"/></clipPath>
+</defs>
+<ellipse cx="470" cy="642" rx="300" ry="32" fill="#5a3427" opacity=".17" filter="url(#blurSoft)"/>
+
+<g transform="rotate(9 640 380)" filter="url(#drop)">
+  <rect x="492" y="100" width="288" height="552" rx="55" fill="url(#graphite)"/>
+  <rect x="508" y="116" width="256" height="520" rx="42" fill="#26302a"/>
+  <rect x="508" y="116" width="256" height="520" rx="42" fill="url(#backSheen)"/>
+  <rect x="528" y="140" width="144" height="164" rx="35" fill="#1c2420" stroke="#79847c" stroke-opacity=".35"/>
+  <circle cx="565" cy="177" r="25" fill="#0c100e" stroke="#66736a" stroke-opacity=".7" stroke-width="2"/>
+  <circle cx="565" cy="177" r="14" fill="#243a36"/>
+  <circle cx="565" cy="177" r="6" fill="#8ca9a2"/>
+  <circle cx="636" cy="177" r="21" fill="#0c100e" stroke="#66736a" stroke-opacity=".7"/>
+  <circle cx="636" cy="177" r="11" fill="#1f3231"/>
+  <circle cx="565" cy="255" r="21" fill="#0c100e" stroke="#66736a" stroke-opacity=".7"/>
+  <circle cx="636" cy="255" r="12" fill="#f1e3c4" opacity=".9"/>
+  <text x="635" y="605" text-anchor="end" fill="#d8d2c1" opacity=".38" font-family="Helvetica, Arial, sans-serif" font-size="20" letter-spacing="5">X1</text>
+  <rect x="754" y="260" width="5" height="84" rx="2.5" fill="#0d1210"/>
+</g>
+
+<g transform="rotate(-8 430 380)" filter="url(#drop)">
+  <rect x="266" y="126" width="300" height="541" rx="51" fill="url(#metalEdge)"/>
+  <rect x="278" y="139" width="276" height="516" rx="42" fill="#0b0f0d"/>
+  <rect x="279" y="143" width="274" height="509" rx="39" fill="url(#screenPro)"/>
+  <g clip-path="url(#proScreenClip)">
+    <circle cx="493" cy="220" r="146" fill="#f7c58f" opacity=".58"/>
+    <circle cx="493" cy="220" r="202" fill="#f7c58f" opacity=".12"/>
+    <circle cx="340" cy="516" r="211" fill="#833b2c" opacity=".48"/>
+    <path d="M244 385 C346 298 476 331 569 433" stroke="#f8dfb4" stroke-opacity=".2" stroke-width="1.4"/>
+    <path d="M239 407 C354 316 500 350 589 457" stroke="#f8dfb4" stroke-opacity=".1" stroke-width="1.4"/>
+    <rect x="295" y="168" width="70" height="21" rx="10.5" fill="#1a1e1b"/>
+    <text x="306" y="248" fill="#fff7eb" font-family="Helvetica, Arial, sans-serif" font-size="49" font-weight="300" letter-spacing="-1">09:41</text>
+    <text x="307" y="273" fill="#f4d8c3" opacity=".8" font-family="Helvetica, Arial, sans-serif" font-size="10" letter-spacing="2.5">WEDNESDAY · 19 NOV</text>
+    <g transform="translate(307 510)">
+      <rect width="211" height="77" rx="21" fill="#f9e9d5" opacity=".13"/>
+      <rect x="14" y="17" width="44" height="44" rx="14" fill="#f1cda9" opacity=".75"/>
+      <circle cx="36" cy="39" r="12" fill="#cf7654"/>
+      <rect x="70" y="22" width="105" height="7" rx="3.5" fill="#fff1e2" opacity=".8"/>
+      <rect x="70" y="37" width="78" height="6" rx="3" fill="#fff1e2" opacity=".35"/>
+      <rect x="70" y="50" width="92" height="6" rx="3" fill="#fff1e2" opacity=".25"/>
+    </g>
+    <path d="M279 143 L553 143 L553 280 C442 232 350 292 279 382 Z" fill="url(#sheen)" opacity=".5"/>
+  </g>
+  <rect x="366" y="153" width="96" height="24" rx="12" fill="#141817"/>
+  <circle cx="440" cy="165" r="4" fill="#35423a"/>
+  <rect x="559" y="270" width="4" height="70" rx="2" fill="#72766d" opacity=".8"/>
+  <rect x="559" y="352" width="4" height="38" rx="2" fill="#72766d" opacity=".8"/>
+  <rect x="269" y="250" width="4" height="64" rx="2" fill="#8d8c80" opacity=".8"/>
+</g>
+
+<g opacity=".7" stroke="#743924" stroke-width="1">
+  <circle cx="787" cy="496" r="50" stroke-dasharray="2 7"/>
+  <circle cx="787" cy="496" r="66" stroke-opacity=".4"/>
+</g>
+<g transform="translate(128 404)" opacity=".8">
+  <rect width="98" height="30" rx="15" fill="#f8ecda" opacity=".42" stroke="#8e543f" stroke-opacity=".28"/>
+  <circle cx="18" cy="15" r="4" fill="#b45233"/>
+  <text x="31" y="19" fill="#4e342b" font-family="Helvetica, Arial, sans-serif" font-size="8.5" letter-spacing="2">PRO SERIES</text>
+</g>
+<g fill="#3c2b24" opacity=".38" font-family="Helvetica, Arial, sans-serif">
+  <text x="48" y="676" font-size="8.5" letter-spacing="3.2">JIANWU SELECT · OBJECT STUDY 2026</text>
+</g>
+<g transform="translate(900 672)">
+  <circle cx="0" cy="0" r="4" fill="#b64d30"/>
+  <circle cx="16" cy="0" r="4" stroke="#3c2b24" stroke-opacity=".4"/>
+</g>
+</svg>

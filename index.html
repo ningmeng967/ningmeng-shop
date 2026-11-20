@@ -240,7 +240,7 @@
 
 <div class="toast" id="toast" role="status"></div>
 
-<script src="data.js?v=4"></script>
+<script src="data.js?v=5"></script>
 <script>
 /* ============================================================
    只改下面这一段，就能换成你自己的店
@@ -256,7 +256,8 @@ const SHOP = {
 /* 分类与商品数据来自 data.js */
 const CATEGORIES = (window.CATEGORIES || []);
 const PRODUCTS = (window.PRODUCTS || []);
-const CATS = CATEGORIES.length ? CATEGORIES : [...new Set(PRODUCTS.map(p => p.category))];
+const CATS = (CATEGORIES.length ? CATEGORIES : [...new Set(PRODUCTS.map(p => p.category))])
+  .filter(c => PRODUCTS.some(p => p.category === c));
 
 /* ============================ 配置结束 ============================ */
 

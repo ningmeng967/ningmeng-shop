@@ -93,7 +93,8 @@
   }
   .card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(31,29,27,.10)}
   .card:active{transform:translateY(-1px)}
-  .thumb{aspect-ratio:4/3;background:#efeeeb;overflow:hidden}
+  .thumb{position:relative;aspect-ratio:3/4;background:#efeeeb;overflow:hidden}
+  .thumb .badge{position:absolute;right:8px;bottom:8px;background:rgba(20,18,16,.62);color:#fff;font-size:11px;line-height:1;padding:5px 8px;border-radius:999px}
   .thumb img{width:100%;height:100%;object-fit:cover;transition:transform .35s ease}
   .card:hover .thumb img{transform:scale(1.04)}
   .card-body{padding:11px 12px 13px}
@@ -130,6 +131,11 @@
   @keyframes pop{from{transform:scale(.92);opacity:0}to{transform:scale(1);opacity:1}}
   .sheet h3{font-size:17px;font-weight:700}
   .sheet .pname{font-size:13px;color:var(--ink-3);margin-top:4px;min-height:19px}
+  .gal{margin-top:12px}
+  .gal-track{display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;border-radius:12px}
+  .gal-track::-webkit-scrollbar{display:none}
+  .gal-track img{flex:0 0 100%;width:100%;height:46vh;max-height:420px;object-fit:contain;background:#f6f5f3;border-radius:12px;scroll-snap-align:center}
+  .gal-count{font-size:12px;color:var(--ink-3);margin-top:6px}
   .qr-wrap{margin:16px auto 0;width:180px}
   .qr-wrap img{
     width:180px;height:180px;object-fit:contain;border-radius:12px;
@@ -211,6 +217,11 @@
     <h3 id="modalTitle">添加微信咨询</h3>
     <div class="pname" id="modalProduct"></div>
 
+    <div class="gal" id="gal" hidden>
+      <div class="gal-track" id="galTrack"></div>
+      <div class="gal-count" id="galCount"></div>
+    </div>
+
     <div class="qr-wrap" id="qrWrap" hidden>
       <img id="modalQR" alt="微信二维码">
       <div class="qr-hint">长按识别 / 扫码添加</div>
@@ -240,19 +251,25 @@ const SHOP = {
 };
 
 /* 分类：顺序就是显示顺序 */
-const CATEGORIES = ["手机", "耳机", "风扇", "智能手表"];
+/* 分类：留空 [] 会自动按商品生成 */
+const CATEGORIES = [];
 
-/* 商品：name 名称 / category 分类 / image 图片路径 */
+/* 商品：name 名称 / category 分类 / images 图片数组（第一张作封面） */
 const PRODUCTS = [
-  { name: "星曜 X1 Pro 5G 手机",   category: "手机",     image: "assets/phone-pro.svg" },
-  { name: "极光 Air 轻薄手机",     category: "手机",     image: "assets/phone-air.svg" },
-  { name: "云感 Air 真无线耳机",   category: "耳机",     image: "assets/earphone-cloud.svg" },
-  { name: "静界 Pro 头戴式耳机",   category: "耳机",     image: "assets/earphone-studio.svg" },
-  { name: "清风 Mini 桌面风扇",    category: "风扇",     image: "assets/fan-mini.svg" },
-  { name: "环宇 Air 立式循环扇",   category: "风扇",     image: "assets/fan-orbit.svg" },
-  { name: "曜石 Watch S 智能手表", category: "智能手表", image: "assets/watch-obsidian.svg" },
-  { name: "星环 Watch Ultra 户外表", category: "智能手表", image: "assets/watch-halo.svg" }
+  {
+    name: "Ultra4 高版智能手表",
+    category: "智能手表",
+    images: [
+      "assets/products/watch-u4-1.jpg",
+      "assets/products/watch-u4-2.jpg",
+      "assets/products/watch-u4-3.jpg",
+      "assets/products/watch-u4-4.jpg"
+    ]
+  }
 ];
+/* 分类留空时按商品自动生成 */
+const CATS = CATEGORIES.length ? CATEGORIES : [...new Set(PRODUCTS.map(p => p.category))];
+
 /* ============================ 配置结束 ============================ */
 
 const $ = id => document.getElementById(id);
@@ -261,6 +278,7 @@ const modalProduct = $('modalProduct'), modalWxId = $('modalWxId');
 const qrWrap = $('qrWrap'), modalQR = $('modalQR');
 const wechatBtn = $('wechatBtn'), wechatText = $('wechatText');
 const btnCopy = $('btnCopy'), btnClose = $('btnClose'), toastEl = $('toast');
+const gal = $('gal'), galTrack = $('galTrack'), galCount = $('galCount');
 
 let current = '全部';
 let toastTimer = null;
@@ -305,7 +323,7 @@ async function copyText(text){
 
 /* ---------- 分类 ---------- */
 function renderCats(){
-  const all = ['全部', ...CATEGORIES];
+  const all = ['全部', ...CATS];
   catsEl.innerHTML = all.map(c => {
     const count = c === '全部'
       ? PRODUCTS.length
@@ -327,9 +345,12 @@ function renderGrid(){
     return;
   }
 
-  gridEl.innerHTML = list.map((p, i) => `
+  gridEl.innerHTML = list.map((p, i) => {
+    const imgs = p.images && p.images.length ? p.images : (p.image ? [p.image] : []);
+    const badge = imgs.length > 1 ? `<span class="badge">${imgs.length} 图</span>` : '';
+    return `
     <button class="card" data-i="${PRODUCTS.indexOf(p)}" style="animation-delay:${i * 30}ms">
-      <span class="thumb"><img src="${p.image}" alt="${p.name}" loading="lazy" decoding="async"></span>
+      <span class="thumb"><img src="${imgs[0] || ''}" alt="${p.name}" loading="lazy" decoding="async">${badge}</span>
       <span class="card-body">
         <span class="card-name">${p.name}</span>
         <span class="card-tip">
@@ -338,15 +359,24 @@ function renderGrid(){
         </span>
       </span>
     </button>
-  `).join('');
+  `;
+  }).join('');
 }
 
 /* ---------- 弹窗 ---------- */
 let lastFocused = null;
 
-function openModal(productName){
+function openModal(product){
   lastFocused = document.activeElement;
-  modalProduct.textContent = productName ? '商品：' + productName : '';
+  modalProduct.textContent = product ? product.name : '';
+
+  const imgs = product
+    ? (product.images && product.images.length ? product.images : (product.image ? [product.image] : []))
+    : [];
+  galTrack.innerHTML = imgs.map(src => `<img src="${src}" alt="${product.name}" loading="lazy">`).join('');
+  gal.hidden = imgs.length === 0;
+  galTrack.scrollLeft = 0;
+  galCount.textContent = imgs.length > 1 ? '1 / ' + imgs.length : '';
   modalWxId.textContent = SHOP.wechat;
 
   if(SHOP.qr){
@@ -394,7 +424,7 @@ gridEl.addEventListener('click', e => {
   const card = e.target.closest('.card');
   if(!card) return;
   const p = PRODUCTS[Number(card.dataset.i)];
-  if(p) openModal(p.name);
+  if(p) openModal(p);
 });
 
 btnCopy.addEventListener('click', async () => {
@@ -407,6 +437,13 @@ btnCopy.addEventListener('click', async () => {
     btnCopy.textContent = '复制';
   }, 1600);
 });
+
+galTrack.addEventListener('scroll', () => {
+  const total = galTrack.children.length;
+  if(total < 2) return;
+  const idx = Math.round(galTrack.scrollLeft / galTrack.clientWidth) + 1;
+  galCount.textContent = Math.min(total, Math.max(1, idx)) + ' / ' + total;
+}, { passive: true });
 
 btnClose.addEventListener('click', closeModal);
 mask.addEventListener('click', e => { if(e.target === mask) closeModal(); });
